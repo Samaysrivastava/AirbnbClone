@@ -26,6 +26,11 @@ const listingSchema = new Schema(
             type:Schema.Types.ObjectId,
             ref:"User",
         },
+        category:{
+            type:String,
+            enum:["Trending","Mountain","Rooms","Iconic cities","Castles","Amazing pool","Camping","Farms","Arctic"],
+            required:true,
+        },
         geometry:{
             type:{
                 type:String,
@@ -37,7 +42,8 @@ const listingSchema = new Schema(
                 type:[Number],
                 required:true
             },
-        }
+        },
+       
       
     }
 );

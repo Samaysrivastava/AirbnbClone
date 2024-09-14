@@ -5,8 +5,22 @@ const geocodingClient = mbxGeocoding({accessToken:mapToken});
 
 // index
 module.exports.index = async(req,res)=>{
-    const allListings =  await Listing.find({});
-    res.render("listings/index.ejs",{allListings});
+    const {category,search} = req.query;
+    let query = {};
+    if(category){
+      query = {category};
+    }
+    if(search){
+        query.title = { $regex: search, $options: 'i' };
+    }
+
+    try {
+        const allListings = await Listing.find(query);
+        res.render("listings/index.ejs", { allListings });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
 };
 // new listing
 module.exports.renderNewForm = (req,res)=>{
@@ -47,11 +61,12 @@ module.exports.createListing= async(req,res)=>{
 
     // console.log(url,"..",filename);
     const newListing = new Listing(req.body.listings);
+    console.log(newListing);
     newListing.owner = req.user._id;
     newListing.image = {url,filename};
     newListing.geometry = response.body.features[0].geometry;
     let savedlisting = await newListing.save();
-    console.log(savedlisting);
+    // console.log(savedlisting);
     req.flash("success","new listing created");
     res.redirect("/listings");
 };

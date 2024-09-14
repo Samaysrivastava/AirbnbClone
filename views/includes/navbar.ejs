@@ -34,11 +34,12 @@
           <a class="nav-link" href="/listings">Explore</a>
         </div>
         <div class="navbar-nav ms-auto">
-          <form class="d-flex" role="search">
+          <form class="d-flex" role="search" onsubmit="handleSearch(event)">
             <input 
                class="form-control me-2 search-inp" 
                type="search" 
                placeholder="Search destinations" 
+               id="searchInput"
               
             />
             <button class="btn search-btn" type="submit">
@@ -60,3 +61,18 @@
       </div>
     </div>
   </nav>
+  <script>
+    function handleSearch(event) {
+      event.preventDefault(); // Prevent default form submission
+  
+      // Get the value entered in the search box
+      const searchTerm = document.getElementById('searchInput').value;
+  
+      // Redirect to the listings page with the search term as a query parameter
+      if (searchTerm) {
+        window.location.href = `/listings?search=${encodeURIComponent(searchTerm)}`;
+      } else {
+        window.location.href = `/listings`; // If no search term, redirect to the general listings page
+      }
+    }
+  </script>
