@@ -102,7 +102,7 @@ app.use("/",userRouter);
 app.get("/",(req, res) => {
     // res.redirect("/listings");
     // const allListings = await Listing.find({});
-    res.render("listings/main.ejs");
+    res.render("listings/welcome.ejs");
   });
 app.all("*",(req,res,next)=>{
     next(new ExpressError(404,"page Not Found"));
