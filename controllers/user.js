@@ -15,6 +15,8 @@ module.exports.postLogin = async(req,res)=>{
     req.flash("success","Welcome to wanderlust You are logged in!");
     let redirectUrl = res.locals.redirectUrl||"/listings";
     res.redirect(redirectUrl);
+    const currUser = req.user;
+    console.log(currUser);
 };
 // logout
 module.exports.logout=(req,res,next)=>{
