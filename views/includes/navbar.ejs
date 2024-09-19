@@ -76,10 +76,10 @@
     function handleSearch(event) {
       event.preventDefault(); // Prevent default form submission
   
-      // Get the value entered in the search box
+     
       const searchTerm = document.getElementById('searchInput').value;
   
-      // Redirect to the listings page with the search term as a query parameter
+    
       if (searchTerm) {
         window.location.href = `/listings?search=${encodeURIComponent(searchTerm)}`;
       } else {
